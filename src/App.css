@@ -1,33 +1,122 @@
-.App {
-  text-align: center;
+
+body, html{
+  margin:0;
+  padding:0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+body, input, button{
+  font-family: 'Lato', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 5% 0;
+  margin: auto;
+}
+
+/* login form */
+.forms {
+  width: 40%;
+}
+
+.forms form {
+  border: 3px solid #f1f1f1;
+  padding: 5%;
+}
+
+.forms form input:not([type=checkbox]){
+  width: 100%;
+  padding: 2% 1%;
+  margin: 3% 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* button */
+.btn-violet {
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  background-color: rgb(58, 1, 114);
   color: white;
+  padding: 3% 0;
+  margin: 2% 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+a:hover {
+  opacity: 0.8;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dc {
+  background-color: rgb(175, 40, 40);
+  color: black;
+  margin: 4%;
+}
+
+.w-20 {
+  width: 20%;
+}
+
+.w-100 {
+width: 100%;
+}
+
+.txt-center{
+  text-align: center;
+}
+
+.d-flex-100{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs input {
+  margin: 2%;
+}
+
+hr {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.top_page div input {
+  width: 80%;
+  margin: 0 1%;
+}
+
+.bloc {
+  border: 1px solid black;
+  padding: 3%;
+  margin: 1%;
+}
+
+.m-sidebar {
+  margin-left: 200px;
+}
+
+.field {
+  margin: 1%;
+}
+
+.red {
+  color: red;
 }

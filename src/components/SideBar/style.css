@@ -1,0 +1,35 @@
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+
+.sidebar button {
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+    color: black;
+    padding: 16px;
+    width: 100%;
+}
+
+.sidebar a.active {
+    background-color: rgb(58, 1, 114);
+    color: white;
+}
+
+.sidebar a:hover:not(.active), .sidebar button:hover {
+    background-color: #555;
+    color: white;
+}
