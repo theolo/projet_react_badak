@@ -1,13 +1,13 @@
 import React from 'react';
 import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import ButtonList from '../../components/ButtonList';
-import { getProjects } from '../../api/functions';
+import { getPages } from '../../api/functions';
 
-class AdminProjectList extends React.Component {
+class AdminPageList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            projets: [],
+            pages: [],
         }
     }
 
@@ -15,20 +15,20 @@ class AdminProjectList extends React.Component {
         // if(localStorage.getItem('id_user') === null)
         //     this.props.history.push('/');
         // else{
-        let id_user = JSON.parse(localStorage.getItem('userForAdmin')).id
-        getProjects(id_user, (resp)=> {
-            this.setState({projets: resp.projets});
+        let id_projet = JSON.parse(localStorage.getItem('projet')).id
+        getPages(id_projet, (resp)=> {
+            this.setState({pages: resp.pages});
         })
         }
     // }
 
     handleClick = (param) => {
-        localStorage.setItem('projet', JSON.stringify(param));
-        this.props.history.push(`/admin/clients/projets/pages`);
+        localStorage.setItem('pageForAdmin', JSON.stringify(param));
+        this.props.history.push(`/admin/clients/projets/pages/${param.id}`)
     }
 
     render() {
-        const { projets } = this.state
+        const { pages } = this.state
         // if(localStorage.getItem('id_user') === null)
         //     this.props.history.push('/');
         return (
@@ -36,14 +36,14 @@ class AdminProjectList extends React.Component {
                 {/* {this.state.users.map((user, index) =>
                     <button key={index} id={user.id} className='btn-violet' onClick={this.handleClick}>{user.entreprise}</button>
                     )} */}
-                <ButtonList styles={styles} toList={projets} onClick={(projet) => this.handleClick(projet)} />
+                <ButtonList styles={styles} toList={pages} onClick={(projet) => this.handleClick(projet)} />
                 <LogoutButton history={this.props.history} />
             </div>
         );
     }
 }
 
-export default AdminProjectList;
+export default AdminPageList;
 
 const styles = {
     container: {

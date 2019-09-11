@@ -2,12 +2,7 @@ import React, { createContext, Component } from "react";
 
 import { updatePageFields } from '../api/functions'
 
-export const ContentContext = createContext({
-    fields: [],
-    changeField: () => {},
-    saveChanges: () => {}
-
-});
+export const ContentContext = createContext({});
 
 class ContentProvider extends Component {
     state = { 

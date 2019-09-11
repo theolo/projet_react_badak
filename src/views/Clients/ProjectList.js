@@ -2,8 +2,9 @@ import React from 'react';
 // import { DataContext } from "../../store/DataProvider";
 
 import LogoutButton from '../../components/LogoutButton/LogoutButton';
-import { getProjects } from '../../api/functions';
 import ButtonList from '../../components/ButtonList';
+
+import { getProjects } from '../../api/functions';
 
 class ProjectList extends React.Component {
     constructor(props) {
@@ -30,13 +31,13 @@ class ProjectList extends React.Component {
     }
 
     render() {
-        const { projets } = this.state
+        const { projets } = this.state 
         return (
-            <div className='container w-20'>
+            <div style={styles.container}>
                 {/* {this.state.projets.map((projet, index) =>
                     <button key={index} id={projet.id} className='btn-violet' onClick={this.handleClick(projet)}>{projet.nom}</button>
                     )} */}
-                    <ButtonList toList={projets} onClick={(projet) => this.handleClick(projet)} />
+                    <ButtonList styles={styles} toList={projets} onClick={(projet) => this.handleClick(projet)} />
                     <LogoutButton history={this.props.history} />
             </div>
         );
@@ -45,3 +46,29 @@ class ProjectList extends React.Component {
 // ProjectList.contextType = DataContext;
 
 export default ProjectList;
+
+const styles = {
+    container: {
+        width: '20%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '5% 0',
+        margin: 'auto',
+    },
+    button: `
+    font-size: 14px;
+    margin: 10px 0;
+    width: 100%;
+    padding: 5%;
+    background-color: #3a0172;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: #6004bd;
+    }
+    `,
+}

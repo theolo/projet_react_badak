@@ -1,10 +1,13 @@
 import React from 'react';
-import { DataContext } from '../../store/DataProvider';
+
 
 import SideNav from '../../components/SideBar/SideBar';
-import EditContent from '../../components/Test/EditContent';
-import TopPageContent from '../../components/Test/TopPageContent';
-import ContentProvider from '../../store/ContentProvider';
+import EditContent from '../../components/Client/EditContent';
+import TopPageContent from '../../components/Client/TopPageContent';
+
+// import ContentProvider from '../../store/ContentProvider';
+import { DataContext } from '../../store/DataProvider';
+import { ContentContext } from '../../store/ContentProvider';
 
 class EditPage extends React.Component {
 
@@ -13,26 +16,36 @@ class EditPage extends React.Component {
             this.props.history.push('/projets/pages');
     }
 
-
+    
 
     render() {
-        // console.log(this.context)
         return (
-            <div>
-                <SideNav history={this.props.history}/>
-                <div className='m-sidebar'>
-                        <TopPageContent />
-                    <hr />
-                    <div>
-                        <ContentProvider>
-                            <EditContent />
-                        </ContentProvider>
-                    </div>
-                </div>
-            </div>
+            <DataContext.Consumer>{(data) => {
+                return(
+                    <ContentContext.Consumer>{(content) => {
+                        return (
+                            <div>
+                                <SideNav history={this.props.history} content={content} data={data}/>
+                                <div style={styles.content}>
+                                    <TopPageContent content={content} data={data}/>
+                                    <hr />
+                                    <EditContent content={content} data={data}/>
+                                </div>
+                            </div>
+                        );
+                    }}</ContentContext.Consumer>
+                );
+            }}</DataContext.Consumer>                    
         )
     }
 }
-EditPage.contextType = DataContext;
 
 export default EditPage;
+
+const styles = {
+    content: {
+        width: '80%',
+        marginLeft: 'auto',
+        marginBottom: 20
+    }
+}

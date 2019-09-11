@@ -2,11 +2,11 @@ import axios from 'axios'
 
 const url = "http://localhost:8888/API_projet_badak"
 
-function addUser(payload) {
+function addUser(payload, callback) {
     console.log(payload);
     axios.post(url + "/user/create_user.php", JSON.stringify(payload))
     .then(function(response) {
-        console.log(response.data)
+        callback(response.data)
     })
     .catch(function (error) {
         console.log(error);

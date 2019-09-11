@@ -33,8 +33,6 @@ class Field extends Component {
     }
 
     render() {
-        console.log(this.context.fields);
-
         const field = this.props;
         if(field.field_type === "textarea")
             return (
@@ -42,7 +40,7 @@ class Field extends Component {
                     <label style={{display: "block"}}>
                         {field.field_name} :
                     </label>
-                        <textarea id={field.field_id} value={this.state.value} onChange={this.handleChange} rows="7" cols="80"/>
+                        <textarea style={styles.textarea} id={field.field_id} value={this.state.value} onChange={this.handleChange} rows="7" cols="80"/>
                 </div>
             );
         else
@@ -50,7 +48,7 @@ class Field extends Component {
                 <div>
                     <label>
                         {field.field_name} :
-                        <input type="text" id={field.field_id} value={this.state.value} onChange={this.handleChange}/>
+                        <input style={styles.input} type="text" id={field.field_id} value={this.state.value} onChange={this.handleChange}/>
                     </label>
                 </div>
             );
@@ -59,3 +57,23 @@ class Field extends Component {
 Field.contextType = ContentContext;
 
 export default Field;
+
+const styles = {
+    textarea: {
+        width: '100%',
+        height: '150px',
+        padding: '12px 20px',
+        boxSizing: 'border-box',
+        border: '2px solid #ccc',
+        borderRadius: '4px',
+        backgroundColor: '#f8f8f8',
+    },
+    input: {
+        width: '100%',
+        padding: '5px 5px',
+        boxSizing: 'border-box',
+        border: '2px solid #ccc',
+        borderRadius: '4px',
+        backgroundColor: '#f8f8f8',
+    }
+}

@@ -9,6 +9,7 @@ class FieldsGroup extends Component {
         super(props);
         this.state = {
             fields: [],
+            fieldsgroup_id: null,
         }
     }
 
@@ -18,6 +19,26 @@ class FieldsGroup extends Component {
             this.setState({
                 fields: resp.group_fields
             })
+        })
+    }
+
+    componentDidUpdate() {
+        if (this.state.fieldsgroup_id !== this.props.fieldsgroup_id) {
+            this.setState({
+                fields: [],
+                fieldsgroup_id: this.props.fieldsgroup_id
+            })
+            getGroupFields(this.props.fieldsgroup_id, (resp) => {
+                this.setState({
+                    fields: resp.group_fields
+                })
+            })
+        }
+    }
+
+    componentWillUnmount() {
+        this.setState({
+            fields: []
         })
     }
 

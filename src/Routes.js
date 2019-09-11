@@ -17,6 +17,8 @@ import CantAccess from './views/CantAccess';
 // import EditContent from './components/Test/EditContent';
 import EditBloc from './components/Test/EditBloc';
 import AdminProjectList from './views/Admin/AdminProjectList'
+import AdminPageList from './views/Admin/AdminPageList'
+import ProjectModif from './views/Admin/AdminProjectModif';
 
 export default class Routes extends Component {
     render() {
@@ -56,6 +58,16 @@ export default class Routes extends Component {
                 component={AdminProjectList}
                 exact
                 path="/admin/clients/projets"
+                />
+                <Route
+                component={AdminPageList}
+                exact
+                path="/admin/clients/projets/pages"
+                />
+                <Route
+                component={ProjectModif}
+                exact
+                path="/admin/clients/projets/pages/:page_id"
                 />
                 <Route
                 component={ProjectList}

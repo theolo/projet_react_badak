@@ -4,6 +4,7 @@ import { DataContext } from '../../store/DataProvider'
 
 import ButtonList from '../../components/ButtonList'
 import LogoutButton from '../../components/LogoutButton/LogoutButton'
+
 import { getPages } from '../../api/functions'
 
 class PageList extends React.Component {
@@ -34,8 +35,8 @@ class PageList extends React.Component {
     render() {
         const {pages} = this.state;
         return (
-            <div className='container w-20'>
-                <ButtonList toList={pages} onClick={(page) => this.handleClick(page)} />
+            <div style={styles.container}>
+                <ButtonList styles={styles} toList={pages} onClick={(page) => this.handleClick(page)} />
                 {/* {pages.map((page, index) =>
                     <button key={index} id={page.id} className='btn-violet' onClick={this.handleClick(page)}>{page.nom}</button>
                     )} */}
@@ -47,3 +48,28 @@ class PageList extends React.Component {
 PageList.contextType = DataContext;
 
 export default PageList;
+
+const styles = {
+    container: {
+        width: '20%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '5% 0',
+        margin: 'auto',
+    },
+    button: `
+    margin: 10px 0;
+    width: 100%;
+    padding: 5%;
+    background-color: #3a0172;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: #6004bd;
+    }
+    `,
+}

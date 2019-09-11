@@ -1,5 +1,5 @@
 import React from 'react';
-import Bloc from './Bloc';
+import EditBloc from './EditBloc';
 
 class ZoneContent extends React.Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class ZoneContent extends React.Component {
                 <div>
                     {blocs.map((bloc, index) => {
                         return (
-                            <Bloc />
+                            <EditBloc />
                             )
                         })}
                 </div>
