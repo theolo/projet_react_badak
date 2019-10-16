@@ -36,7 +36,8 @@ class AdminPageList extends React.Component {
                 {/* {this.state.users.map((user, index) =>
                     <button key={index} id={user.id} className='btn-violet' onClick={this.handleClick}>{user.entreprise}</button>
                     )} */}
-                <ButtonList styles={styles} toList={pages} onClick={(projet) => this.handleClick(projet)} />
+                <ButtonList style={styles.button} toList={pages} onClick={(projet) => this.handleClick(projet)} />
+                
                 <LogoutButton history={this.props.history} />
             </div>
         );

@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // Views
 import NotFound from './views/NotFound';
 import LoginPage from './views/LoginPage/LoginPage';
-import Admin from './views/Admin/Admin'
+// import Admin from './views/Admin/Admin'
 import CreateUser from './views/Admin/AdminCreateUser'
 import ListUser from './views/Admin/AdminUserList'
 import ProjectList from './views/Clients/ProjectList';
@@ -19,6 +19,7 @@ import EditBloc from './components/Test/EditBloc';
 import AdminProjectList from './views/Admin/AdminProjectList'
 import AdminPageList from './views/Admin/AdminPageList'
 import ProjectModif from './views/Admin/AdminProjectModif';
+import CreateProject from './views/Admin/AdminCreateProject';
 
 export default class Routes extends Component {
     render() {
@@ -40,24 +41,24 @@ export default class Routes extends Component {
                 path="/login"
                 />
                 <Route
-                component={Admin}
+                component={ListUser}
                 exact
                 path="/admin"
                 />
                 <Route
                 component={CreateUser}
                 exact
-                path="/admin/ajout-client"
-                />
-                <Route
-                component={ListUser}
-                exact
-                path="/admin/clients"
+                path="/admin/clients/ajout-client"
                 />
                 <Route
                 component={AdminProjectList}
                 exact
                 path="/admin/clients/projets"
+                />
+                <Route
+                component={CreateProject}
+                exact
+                path="/admin/clients/projets/create"
                 />
                 <Route
                 component={AdminPageList}
@@ -86,14 +87,15 @@ export default class Routes extends Component {
                 />
                 <Route
                 component={CantAccess}
-                exact path='/rd'
+                exact
+                path='/rd'
                 />
                 <Route
                 component={NotFound}
                 exact
                 path='/not-found'
                 />
-                <Redirect to='/not-found' />
+                {/* <Redirect to='/not-found' /> */}
             </Switch>
         );
     }

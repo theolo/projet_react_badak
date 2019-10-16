@@ -14,7 +14,7 @@ class FieldsGroup extends Component {
     }
 
     componentDidMount() {
-        let group = this.props.fieldsgroup_id;   
+        let group = this.props.fieldsgroup_id;
         getGroupFields(group, (resp) => {
             this.setState({
                 fields: resp.group_fields
@@ -42,7 +42,7 @@ class FieldsGroup extends Component {
         })
     }
 
-    render() {
+    render() {        
         return (
             <div id="group">
                 {this.state.fields.map((field,index) =>

@@ -1,5 +1,5 @@
 import React from 'react';
-// import { DataContext } from "../../store/DataProvider";
+import { DataContext } from "../../store/DataProvider";
 
 import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import ButtonList from '../../components/ButtonList';
@@ -17,16 +17,21 @@ class ProjectList extends React.Component {
     componentDidMount(){
         if(!localStorage.user)
             this.props.history.push('/');
+        // if(!this.context.user.id)
+        //     this.props.history.push('/');
         else {
-            let user = JSON.parse(localStorage.user);
-            getProjects(user.id, (resp) => {
+            getProjects(JSON.parse(localStorage.user).id, (resp) => {
                 this.setState({projets: resp.projets});
             })
+            // getProjects(this.context.user.id, (resp) => {
+            //     this.setState({projets: resp.projets});
+            // })
         }
     }
 
-    handleClick = (param) => {
-        localStorage.setItem('projet', JSON.stringify(param));
+    handleClick = (projet) => {
+        localStorage.setItem('projet', JSON.stringify(projet));
+        this.context.setProject(projet)
         this.props.history.push('/projets/pages');
     }
 
@@ -37,13 +42,13 @@ class ProjectList extends React.Component {
                 {/* {this.state.projets.map((projet, index) =>
                     <button key={index} id={projet.id} className='btn-violet' onClick={this.handleClick(projet)}>{projet.nom}</button>
                     )} */}
-                    <ButtonList styles={styles} toList={projets} onClick={(projet) => this.handleClick(projet)} />
+                    <ButtonList style={styles.button} toList={projets} onClick={(projet) => this.handleClick(projet)} />
                     <LogoutButton history={this.props.history} />
             </div>
         );
     }
 }
-// ProjectList.contextType = DataContext;
+ProjectList.contextType = DataContext;
 
 export default ProjectList;
 
@@ -58,7 +63,7 @@ const styles = {
         margin: 'auto',
     },
     button: `
-    font-size: 14px;
+    font-size: 16px;
     margin: 10px 0;
     width: 100%;
     padding: 5%;

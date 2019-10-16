@@ -1,10 +1,10 @@
 import React from 'react';
-import { DataContext } from '../../store/DataProvider';
 
 import { getPages } from '../../api/functions';
 import ButtonList from '../ButtonList';
 import LogoutButton from '../LogoutButton/LogoutButton';
-import './style.css'
+import BackButton from '../BackButton';
+// import './style.css'
 
 class SideBar extends React.Component {
     constructor(props) {
@@ -37,8 +37,8 @@ class SideBar extends React.Component {
     // }
 
     handleClick = (param) => {
-        this.props.data.setPage(param);
         localStorage.setItem('page', JSON.stringify(param));
+        this.props.data.setPage(param);
         this.props.history.push(`/projets/pages/${param.id}`);
     }
 
@@ -48,19 +48,19 @@ class SideBar extends React.Component {
             <div style={styles.sidebar}>
                 <h3>{this.state.project_name}</h3>
                 <hr/>
-                <ButtonList styles={styles} toList={info} />
+                <ButtonList style={styles.button} toList={info} />
                 <hr />
                 <p>Pages :</p>
-                <ButtonList styles={styles} toList={pages} onClick={this.handleClick} />
+                <ButtonList style={styles.button} toList={pages} onClick={this.handleClick}/>
                 {/* {this.state.pages.map((page, index) =>
                     <button key={index} id={page.id} onClick={this.handleClick(page)}>{page.nom}</button>
                 )} */}
+                <BackButton history={this.props.history}/>
                 <LogoutButton history={this.props.history}/>
             </div>
         )
     }
 }
-SideBar.contextType = DataContext
 
 
 export default SideBar;
@@ -80,6 +80,7 @@ const styles = {
         text-align: left;
         font-size: 1rem;
         color: black;
+        background-color: #f1f1f1;
         padding: 16px;
         width: 100%;
         cursor: pointer;

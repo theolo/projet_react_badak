@@ -18,25 +18,29 @@ class PageList extends React.Component {
     componentDidMount(){
         if(!localStorage.projet){
             this.props.history.push('/projet');
+        // if(!this.context.project.id){
+        //     this.props.history.push('/projet');
         } else {
-            let projet = JSON.parse(localStorage.projet);
-            getPages(projet.id, (resp)=> {
+            getPages(JSON.parse(localStorage.projet).id, (resp) => {
                 this.setState({pages: resp.pages});
             })
+            // getPages(this.context.project.id, (resp)=> {
+            //     this.setState({pages: resp.pages});
+            // })
         }
     }
 
-    handleClick = (param) => {
-        localStorage.setItem('page', JSON.stringify(param));
-        this.context.setPage(param);
-        this.props.history.push(`/projets/pages/${param.id}`)
+    handleClick = (page) => {
+        localStorage.setItem('page', JSON.stringify(page));
+        this.context.setPage(page);
+        this.props.history.push(`/projets/pages/${page.id}`)
     }
 
     render() {
         const {pages} = this.state;
         return (
             <div style={styles.container}>
-                <ButtonList styles={styles} toList={pages} onClick={(page) => this.handleClick(page)} />
+                <ButtonList style={styles.button} toList={pages} onClick={(page) => this.handleClick(page)} />
                 {/* {pages.map((page, index) =>
                     <button key={index} id={page.id} className='btn-violet' onClick={this.handleClick(page)}>{page.nom}</button>
                     )} */}
@@ -60,6 +64,7 @@ const styles = {
         margin: 'auto',
     },
     button: `
+    font-size: 16px;
     margin: 10px 0;
     width: 100%;
     padding: 5%;

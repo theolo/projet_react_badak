@@ -2,8 +2,18 @@ import axios from 'axios'
 
 const url = "http://localhost:8888/API_projet_badak"
 
+function createProject(payload) {
+    // axios.post(url + "", JSON.stringify(payload))
+    // .then(function(response) {
+    //     callback(response.data)
+    // })
+    // .catch(function (error) {
+    //     console.log(error);
+    // });
+}
+
+
 function addUser(payload, callback) {
-    console.log(payload);
     axios.post(url + "/user/create_user.php", JSON.stringify(payload))
     .then(function(response) {
         callback(response.data)
@@ -61,10 +71,10 @@ function getPages(id_projet, callback) {
     });
 }
 
-function getPageBlocs(id_page, callback) {
+function getPageBlocs(id_modele, callback) {
     axios.get(url + "/project/page_blocs.php", {
         params: {
-            id_page: id_page
+            id_modele: id_modele
         }
     })
     .then(function(response) {
@@ -103,6 +113,21 @@ function getGroupFields(id_group, callback) {
     })
 }
 
+function getFieldContent(id_field, id_page, callback) {
+    axios.get(url + "/project/content.php", {
+        params: {
+            id_field: id_field,
+            id_page: id_page
+        }
+    })
+    .then(function(response) {
+        callback(response.data);
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+}
+
 function updatePageFields(payload, callback) {
     axios.post(url + "/project/update_page_fields.php", JSON.stringify(payload))
     .then(function(response) {
@@ -123,4 +148,4 @@ function updateTopPage(payload, callback) {
     });
 }
 
-export { addUser, logIn, getUsers, getProjects, getPages, getPageBlocs, getBlocFieldsGroups, getGroupFields, updatePageFields, updateTopPage }
+export { createProject, addUser, logIn, getUsers, getProjects, getPages, getPageBlocs, getBlocFieldsGroups, getGroupFields, getFieldContent, updatePageFields, updateTopPage }

@@ -15,9 +15,7 @@ function App() {
     <DataProvider>
       <ContentProvider>
         <Router history={history}>
-          <div style={styles.container}>
             <Routes />
-          </div>
         </Router>
       </ContentProvider>
     </DataProvider>
@@ -26,8 +24,8 @@ function App() {
 
 export default App;
 
-const styles = {
-  container: {
-    width: '100%',
-  }
-}
+// const styles = {
+//   container: {
+//     width: '100%',
+//   }
+// }

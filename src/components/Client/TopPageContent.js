@@ -57,26 +57,28 @@ class TopPageContent extends Component {
     }
 
     render() { 
-        console.log(this.props.data.page.titre);
         return (
-            <div style={styles.width8}>
-                <div style={styles.flex100}>
-                    <p>title :</p>
-                    <input style={{...styles.width8, ...styles.input}} name="titre" type='text' value={this.state.titre} onChange={this.handleChange}/>
-                </div>
+            <div style={styles.container}>
+                <div style={styles.spacing}>
+                    <div style={styles.flex}>
+                        <label style={styles.label}>title :</label>
+                        <input style={styles.input} name="titre" type='text' value={this.state.titre} onChange={this.handleChange}/>
+                    </div>
 
-                <div style={styles.flex100}>
-                    <p>h1 :</p>
-                    <input style={{...styles.width8, ...styles.input}} name="h1" type='text' value={this.state.h1} onChange={this.handleChange}/>
-                </div>
+                    <div style={styles.flex}>
+                        <label style={styles.label}>h1 :</label>
+                        <input style={styles.input} name="h1" type='text' value={this.state.h1} onChange={this.handleChange}/>
+                    </div>
 
-                <div style={styles.flex100}>
-                    <p>URL :</p>
-                    <input style={{...styles.width8, ...styles.input}} name="url" type='text' value={this.state.url} onChange={this.handleChange}/>
+                    <div style={styles.flex}>
+                        <label style={styles.label}>URL :</label>
+                        <input style={styles.input} name="url" type='text' value={this.state.url} onChange={this.handleChange}/>
+                    </div>
+                    <div style={styles.right}>
+                        <button style={styles.button} onClick={this.SaveTop}>Enregistrer top page</button>
+                    </div>
                 </div>
-                <div style={styles.right}>
-                    <button style={styles.button} onClick={this.SaveTop}>Enregistrer top page</button>
-                </div>
+                <hr style={{margin: 0}}/>
             </div>
         );
     }
@@ -85,17 +87,25 @@ class TopPageContent extends Component {
 export default TopPageContent;
 
 const styles = {
-    width8: {
-        width: '90%',
-        margin: '0 1%',
+    container: {
+        width: '80%',
+        backgroundColor: '#fff',
+        position: 'fixed',
+        paddingBottom: 0,
+        marginBottom: 0,
     },
-    flex100: {
-        width: '100%',
+    spacing: {
+        padding: '10px 10px 0px 10px',
+    },
+    flex: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        margin: 10,
+    },
+    label: {
+        width: 50,
     },
     input: {
+        width: '100%',
         padding: '5px 5px',
         boxSizing: 'border-box',
         border: '2px solid #ccc',

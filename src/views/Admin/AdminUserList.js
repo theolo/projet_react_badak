@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import { getUsers } from '../../api/functions'
 import ButtonList from '../../components/ButtonList';
@@ -10,6 +12,8 @@ class AdminUserList extends React.Component {
             users: [],
         }
     }
+
+    
 
     componentDidMount(){
         // if(localStorage.getItem('id_user') === null)
@@ -27,6 +31,9 @@ class AdminUserList extends React.Component {
     }
 
     render() {
+        const LinkHover = styled(Link)`
+            ${styles.button}
+        `
         const { users } = this.state
         // if(localStorage.getItem('id_user') === null)
         //     this.props.history.push('/');
@@ -35,7 +42,8 @@ class AdminUserList extends React.Component {
                 {/* {this.state.users.map((user, index) =>
                     <button key={index} id={user.id} className='btn-violet' onClick={this.handleClick}>{user.entreprise}</button>
                     )} */}
-                <ButtonList styles={styles} toList={users} onClick={(user) => this.handleClick(user)} />
+                <ButtonList style={styles.button} toList={users} onClick={(user) => this.handleClick(user)} />
+                <LinkHover to="admin/ajout-client">Ajouter un client</LinkHover>
                 <LogoutButton history={this.props.history} />
             </div>
         );

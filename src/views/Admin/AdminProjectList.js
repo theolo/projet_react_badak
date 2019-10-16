@@ -1,6 +1,8 @@
 import React from 'react';
 import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import ButtonList from '../../components/ButtonList';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { getProjects } from '../../api/functions';
 
 class AdminProjectList extends React.Component {
@@ -28,6 +30,9 @@ class AdminProjectList extends React.Component {
     }
 
     render() {
+        const LinkHover = styled(Link)`
+            ${styles.button}
+        `
         const { projets } = this.state
         // if(localStorage.getItem('id_user') === null)
         //     this.props.history.push('/');
@@ -36,7 +41,8 @@ class AdminProjectList extends React.Component {
                 {/* {this.state.users.map((user, index) =>
                     <button key={index} id={user.id} className='btn-violet' onClick={this.handleClick}>{user.entreprise}</button>
                     )} */}
-                <ButtonList styles={styles} toList={projets} onClick={(projet) => this.handleClick(projet)} />
+                <ButtonList style={styles.button} toList={projets} onClick={(projet) => this.handleClick(projet)} />
+                <LinkHover to="projets/create">Créer un projet</LinkHover>
                 <LogoutButton history={this.props.history} />
             </div>
         );

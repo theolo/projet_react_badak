@@ -28,9 +28,11 @@ class DataProvider extends Component {
             id_projet: null,
             id_modele: null
         },
+        pages: [],
         setUser: user => this.setState({ user: user }),
         setProject: project => this.setState({ project: project }),
-        setPage: page => this.setState({ page: page })
+        setPage: page => this.setState({ page: page }),
+        setPages: pages => this.setState({ pages: pages}),
     };
 
     render() {

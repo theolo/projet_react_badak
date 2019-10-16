@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-import { ContentContext } from '../../store/ContentProvider'
+import { ContentContext } from '../../store/ContentProvider';
+import { getFieldContent } from '../../api/functions';
 
 class Field extends Component {
     constructor(props) {
@@ -10,16 +10,21 @@ class Field extends Component {
         }
     }
 
-    componentDidMount() {
-        if(this.props.field_type === 'button') {
+    componentDidMount() {        
+        getFieldContent(this.props.field_id, JSON.parse(localStorage.page).id, (resp) => {
             this.setState({
-                value: this.props.field_content,
+                value: resp.content
             })
-        } else {
-            this.setState({
-                value: this.props.field_content,
-            })
-        }
+        })
+        // if(this.props.field_type === 'button') {
+        //     this.setState({
+        //         value: this.props.field_content,
+        //     })
+        // } else {
+        //     this.setState({
+        //         value: this.props.field_content,
+        //     })
+        // }
         // this.context.setInitial({field_id: this.props.field_id, page_id: JSON.parse(localStorage.page).id, content: this.props.field_content})
         // this.context.setFields({field_id: this.props.field_id, page_id: JSON.parse(localStorage.page).id, content: this.props.field_content})
     }
@@ -29,11 +34,15 @@ class Field extends Component {
             value: e.target.value
         })        
         this.context.changeField(this.props.field_id, JSON.parse(localStorage.page).id, e.target.value)
-        
     }
 
     render() {
         const field = this.props;
+        if (this.state.value === false) {
+            this.setState({
+                value: '',
+            })
+        }
         if(field.field_type === "textarea")
             return (
                 <div>

@@ -7,17 +7,20 @@ class EditContent extends Component {
         super(props);
         this.state = {
             blocs: [],
-            page_id: null,
+            id_page: null,
+            id_modele: null,
         }
     }
 
     setBlocs = () => {
-        if (this.state.page_id !== this.props.data.page.id){
+        if (this.state.id_page !== this.props.data.page.id){
             this.setState({
-                blocs: [],
-                page_id: this.props.data.page.id
+                id_page: this.props.data.page.id
             })
-            getPageBlocs(this.props.data.page.id, (resp) => {
+            this.setState({
+                blocs: []
+            })
+            getPageBlocs(this.props.data.page.id_modele, (resp) => {
                 this.setState({
                     blocs: resp.page_blocs,
                 })
@@ -33,21 +36,21 @@ class EditContent extends Component {
         this.setBlocs()
     }
 
-    render() {        
+    render() {
         return (
-            <>
+            <div style={styles.position}>
                 <div style={styles.right}>
-                    <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>
+                    {this.state.blocs !== [] && <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>}
                 </div>
                 {this.state.blocs.map((bloc, index) => {
                     return(
-                        <Bloc key={index} {...bloc} page_id={this.state.page_id}/>
+                        <Bloc key={index} {...bloc}/>
                     )
                 })}
-                    <div style={styles.right}>
-                    <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>
+                <div style={styles.right}>
+                    {this.state.blocs !== [] && <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>}
                 </div>
-            </>
+            </div>
         );
     }
 }
@@ -55,9 +58,13 @@ class EditContent extends Component {
 export default EditContent;
 
 const styles = {
+    position:{
+        paddingTop: 180,
+        paddingBottom: 10,
+    },
     button: {
         border: 'none',
-        margin: '0 20px 0 0',
+        margin: '0',
         padding: '.5em 1em',
         color: 'white',
         cursor: 'pointer',

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { DataContext } from '../../store/DataProvider'
+import { DataContext } from '../../store/DataProvider'
 
 import { logIn } from '../../api/functions'
 
@@ -10,7 +10,12 @@ class LoginPage extends React.Component {
         this.state = {
             email: "",
             password: "",
+            emailValid: false,
         }
+    }
+
+    validEmail = () => {
+        return /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/.test(this.state.email);
     }
 
     handleChange = (event) => {
@@ -25,12 +30,24 @@ class LoginPage extends React.Component {
         const payload = {email: this.state.email, password: this.state.password}
         logIn(payload, (resp) => {
             localStorage.setItem("user", JSON.stringify(resp.user));
+            this.context.setUser(resp.user);
             if(resp.user.admin === '1')
                 this.props.history.push("/admin");
             else if (resp.user.admin === '0')
                 this.props.history.push("/projets");
         });
-        this.setState({password: ''})
+        this.setState({password: ''});
+    }
+
+    onBlurft = (e) => {
+        if(this.state.email === '') {
+            this.setState({emailValid: false})
+        }
+        else if(!this.validEmail()) {
+            this.setState({emailValid: true})
+        } else {
+            this.setState({emailValid: false})
+        }
     }
 
     render() {
@@ -42,17 +59,19 @@ class LoginPage extends React.Component {
                 <div style={styles.forms}>
                     <form style={styles.form} onSubmit={this.handleSubmit}>
                         <h2>Se connecter</h2>
-                        <label>Email
-                        <input 
+                        <label style={styles.label}>Email
+                        <input
                             style={styles.input}
                             type="email" 
                             placeholder="exemple@gmail.com" 
                             name="email" 
                             value={this.state.email} 
                             onChange={this.handleChange} 
+                            onBlur={this.onBlurft}
                             required/>
+                        {this.state.emailValid && <p style={{color: 'red', margin: 0, fontSize: 10}}>* Cette email n'est pas valide</p>}
                         </label>
-                        <label>Password
+                        <label style={styles.label}>Password
                         <input 
                             style={styles.input}
                             type="password" 
@@ -69,6 +88,7 @@ class LoginPage extends React.Component {
         )
     }
 }
+LoginPage.contextType = DataContext;
 
 export default LoginPage;
 
@@ -90,10 +110,14 @@ const styles = {
         borderRadius: '4px',
         padding: '5%',
     },
+    label: {
+        display: 'block',
+        paddingBottom: '20px',
+    },
     input: {
         width: '100%',
         padding: '2% 1%',
-        margin: '3% 0',
+        marginBottom: '0',
         display: 'inline-block',
         boxSizing: 'border-box',
         border: '2px solid #ccc',
@@ -117,60 +141,3 @@ const styles = {
         }
     `
 }
-
-
-// function LoginPage(props) {
-//     const[userEmail, setUseremail] = useState('');
-//     const[userPassword, setUserpassword] = useState('');
-
-//     const handleEmailChange = (e) => {
-//         setUseremail(e.target.value);
-//     }
-
-//     const handlePasswordChange = (e) => {
-//         setUserpassword(e.target.value);
-//     } 
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         const payload = {'email': userEmail, 'password': userPassword}
-//         logIn(payload, (resp) => {
-//             localStorage.setItem("id_user", resp.user.id)
-//             if(resp.user.admin === '1')
-//                 history.push(`/admin`);
-//             else
-//                 history.push(`/projets`);
-//         });
-//         setUserpassword('');
-//     }
-
-//     return (
-//         <div className="container">
-//             <div className="forms">
-//                 <form onSubmit={handleSubmit}>
-//                     <h2>Se connecter</h2>
-//                     <label>Email
-//                     <input 
-//                         type="email" 
-//                         placeholder="exemple@gmail.com" 
-//                         name="email" 
-//                         value={userEmail} 
-//                         onChange={handleEmailChange} 
-//                         required/>
-//                     </label>
-//                     <label>Password
-//                     <input 
-//                         type="password" 
-//                         placeholder="Password" 
-//                         name="password" 
-//                         value={userPassword} 
-//                         onChange={handlePasswordChange} 
-//                         required/>
-//                     </label>
-//                     <button type="submit" className='btn-violet'>Connexion</button>
-//                 </form>
-//             </div>
-//         </div>
-//     )
-// }
-

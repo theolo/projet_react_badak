@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 class ButtonList extends Component {
-    onClick = param => e => {
-        this.props.onClick(param)
-    }
     
     render() { 
         const ButtonHover = styled.button`
-            ${this.props.styles.button}
+            ${this.props.style}
             `
 
-        return ( 
+        return (
             <>
             {this.props.toList.map((item, index) => 
-                <ButtonHover key={index} id={item.id} onClick={this.onClick(item)}>{item.entreprise ? item.entreprise : item.nom}</ButtonHover>
+                <ButtonHover key={index} id={item.id} onClick={() => this.props.onClick(item)}>{item.entreprise ? item.entreprise : item.nom}</ButtonHover>
             )}
             </>
         );
