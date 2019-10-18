@@ -1,35 +1,50 @@
 import React from 'react';
-import SideNav from '../../components/SideBar/SideBar';
+
+import SideBar from '../../components/SideBar/SideBar';
+// import EditContent from '../../components/Client/EditContent';
+// import TopPageContent from '../../components/Client/TopPageContent';
+// import ContentProvider from '../../store/ContentProvider';
+import { DataContext } from '../../store/DataProvider';
+import { ContentContext } from '../../store/ContentProvider';
 import ZoneContent from '../../components/Test/ZoneContent';
 
-class ProjectModif extends React.Component {
+class AdminProjectModif extends React.Component {
+
+    componentDidMount() {
+        if(!localStorage.page)
+            this.props.history.push('/projets/pages');
+        
+        // if(!this.context.page.id)
+        //     this.props.history.push('/projets/pages');
+    }
+
     render() {
         return (
-            <div>
-                <SideNav history={this.props.history}/>
-                <div className="m-sidebar">
-                    <div className='top_page'>
-                        <div className='d-flex-100'>
-                            <p>title :</p>
-                            <input type='text' />
-                        </div>
-
-                        <div className='d-flex-100'>
-                            <p>h1 :</p>
-                            <input type='text' />
-                        </div>
-
-                        <div className='d-flex-100'>
-                            <p>URL :</p>
-                            <input type='text' />
-                        </div>
-                    </div>
-                    <hr />
-                    <ZoneContent />
-                </div>
-            </div>
+            <DataContext.Consumer>{(data) => {
+                return(
+                    <ContentContext.Consumer>{(content) => {
+                        return (
+                            <div>
+                                <SideBar history={this.props.history} content={content} data={data}/>
+                                <div style={styles.content}>
+                                    <ZoneContent />
+                                </div>
+                            </div>
+                        );
+                    }}</ContentContext.Consumer>
+                );
+            }}</DataContext.Consumer>                    
         )
     }
 }
+AdminProjectModif.contextType = DataContext;
 
-export default ProjectModif;
+export default AdminProjectModif;
+
+const styles = {
+    content: {
+        width: '80%',
+        marginLeft: 'auto',
+        marginBottom: 0,
+    }
+}

@@ -3,54 +3,47 @@ import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import ButtonList from '../../components/ButtonList';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPages } from '../../api/functions';
+import { getModeles } from '../../api/functions';
 
-class AdminPageList extends React.Component {
+class AdminProjectList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            pages: [],
+            modeles: [],
         }
     }
 
     componentDidMount(){
-        // if(localStorage.getItem('id_user') === null)
-        //     this.props.history.push('/');
-        // else{
-        let id_projet = JSON.parse(localStorage.getItem('projet')).id
-        getPages(id_projet, (resp)=> {
-            this.setState({pages: resp.pages});
-        })
-        }
-    // }
+        let admin = JSON.parse(localStorage.user).admin;
+        getModeles(admin, (resp)=> {
+            this.setState({modeles: resp.modeles});
+        });
+    }
 
     handleClick = (param) => {
-        localStorage.setItem('pageForAdmin', JSON.stringify(param));
-        this.props.history.push(`/admin/clients/projets/pages/${param.id}`)
+        localStorage.setItem('projet', JSON.stringify(param));
+        this.props.history.push(`/admin/modele/${param.id}`);
     }
 
     render() {
         const LinkHover = styled(Link)`
             ${styles.button}
         `
-        const { pages } = this.state
-        // if(localStorage.getItem('id_user') === null)
-        //     this.props.history.push('/');
+        const { modeles } = this.state
         return (
             <div style={styles.container}>
                 {/* {this.state.users.map((user, index) =>
                     <button key={index} id={user.id} className='btn-violet' onClick={this.handleClick}>{user.entreprise}</button>
                     )} */}
-                <ButtonList style={styles.button} toList={pages} onClick={(page) => this.handleClick(page)} />
-                <LinkHover to="pages/create">Créer une page</LinkHover>
-                <LinkHover to="pages/modele">Créer un modèle</LinkHover>
+                <ButtonList style={styles.button} toList={modeles} onClick={(modele) => this.handleClick(modele)} />
+                <LinkHover to="modele/create">Créer un modele</LinkHover>
                 <LogoutButton history={this.props.history} />
             </div>
         );
     }
 }
 
-export default AdminPageList;
+export default AdminProjectList;
 
 const styles = {
     container: {

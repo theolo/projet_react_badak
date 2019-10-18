@@ -10,8 +10,8 @@ class Admin extends React.Component {
         `
         return (
             <div style={styles.container}>
-                <LinkHover to="admin/ajout-client">Ajouter un client</LinkHover>
-                <LinkHover to="admin/clients" className="btn-violet">Liste Clients</LinkHover>
+                <LinkHover to="admin/clients">Clients</LinkHover>
+                <LinkHover to="admin/modele">Modèles</LinkHover>
                 <LogoutButton history={this.props.history} />
             </div>
         )

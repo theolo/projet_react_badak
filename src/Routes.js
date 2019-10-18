@@ -2,24 +2,28 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 // Views
-import NotFound from './views/NotFound';
 import LoginPage from './views/LoginPage/LoginPage';
-// import Admin from './views/Admin/Admin'
-import CreateUser from './views/Admin/AdminCreateUser'
-import ListUser from './views/Admin/AdminUserList'
 import ProjectList from './views/Clients/ProjectList';
-// import ProjectModif from './views/Admin/AdminProjectModif';
 import PageList from './views/Clients/PageList'
 import EditPage from './views/Clients/EditPage';
-// import ZoneContent from './components/Test/ZoneContent';
-import CantAccess from './views/CantAccess';
+// import ProjectModif from './views/Admin/AdminProjectModif';
 // import Bloc from './components/Test/Bloc';
 // import EditContent from './components/Test/EditContent';
-import EditBloc from './components/Test/EditBloc';
-import AdminProjectList from './views/Admin/AdminProjectList'
-import AdminPageList from './views/Admin/AdminPageList'
-import ProjectModif from './views/Admin/AdminProjectModif';
-import CreateProject from './views/Admin/AdminCreateProject';
+import Admin from './views/Admin/Admin'
+import AdminModeleList from './views/Admin/AdminModeleList';
+import AdminCreateModele from './views/Admin/AdminCreateModele';
+import AdminUserList from './views/Admin/AdminUserList';
+import AdminCreateUser from './views/Admin/AdminCreateUser';
+import AdminProjectList from './views/Admin/AdminProjectList';
+import AdminCreateProject from './views/Admin/AdminCreateProject';
+import AdminPageList from './views/Admin/AdminPageList';
+import AdminCreatePage from './views/Admin/AdminCreatePage';
+import AdminProjectModif from './views/Admin/AdminProjectModif';
+import CantAccess from './views/CantAccess';
+import NotFound from './views/NotFound';
+
+import ZoneContent from './components/Test/ZoneContent';
+// import EditBloc from './components/Test/EditBloc';
 
 export default class Routes extends Component {
     render() {
@@ -31,7 +35,7 @@ export default class Routes extends Component {
                 to="/login"
                 />
                 <Route 
-                component={EditBloc}
+                component={ZoneContent}
                 exact
                 path="/test"
                 />
@@ -41,12 +45,32 @@ export default class Routes extends Component {
                 path="/login"
                 />
                 <Route
-                component={ListUser}
+                component={Admin}
                 exact
                 path="/admin"
                 />
                 <Route
-                component={CreateUser}
+                component={AdminModeleList}
+                exact
+                path="/admin/modele"
+                />
+                <Route
+                component={AdminCreateModele}
+                exact
+                path="/admin/modele/create"
+                />
+                <Route
+                component={ZoneContent}
+                exact
+                path="/admin/modele/:modele_id"
+                />
+                <Route
+                component={AdminUserList}
+                exact
+                path="/admin/clients"
+                />
+                <Route
+                component={AdminCreateUser}
                 exact
                 path="/admin/clients/ajout-client"
                 />
@@ -56,7 +80,7 @@ export default class Routes extends Component {
                 path="/admin/clients/projets"
                 />
                 <Route
-                component={CreateProject}
+                component={AdminCreateProject}
                 exact
                 path="/admin/clients/projets/create"
                 />
@@ -66,7 +90,12 @@ export default class Routes extends Component {
                 path="/admin/clients/projets/pages"
                 />
                 <Route
-                component={ProjectModif}
+                component={AdminCreatePage}
+                exact
+                path="/admin/clients/projets/pages/create"
+                />
+                <Route
+                component={AdminProjectModif}
                 exact
                 path="/admin/clients/projets/pages/:page_id"
                 />
@@ -95,7 +124,7 @@ export default class Routes extends Component {
                 exact
                 path='/not-found'
                 />
-                {/* <Redirect to='/not-found' /> */}
+                <Redirect to='/not-found' />
             </Switch>
         );
     }

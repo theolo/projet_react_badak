@@ -8,6 +8,7 @@ class EditBloc extends React.Component {
         this.state = {
             section: false,
             custom: false,
+            cancel: false
         }
     }
 
@@ -17,26 +18,42 @@ class EditBloc extends React.Component {
     }
 
     render() {
-        const { section, custom } = this.state
+        const { section, custom } = this.props.bloc
         if(!section && !custom) {
             return (
-                <div className='bloc'>
-                    <button name='section' onClick={this.handleClick}>Section</button>
-                    <button name='custom' onClick={this.handleClick}>Custom</button>
-                </div>
+                <>
+                    <div style={styles.bloc}>
+                        <button id={this.props.bloc.id} name='section' onClick={this.props.handleClick}>Section</button>
+                        <button id={this.props.bloc.id} name='custom' onClick={this.props.handleClick}>Custom</button>
+                        <button id={this.props.bloc.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
+                    </div>
+                </>
             )
         }else if(!section && custom) {
             return (
-                <div className='bloc'>
-                    <CustomField />
-                </div>
+                <>
+                    <div style={styles.bloc}>
+                        <CustomField />
+                        <button id={this.props.bloc.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
+                    </div>
+                </>
             )
         }
         return (
-            <div className='bloc'>
+            <div style={styles.bloc}>
+                <button id={this.props.bloc.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
             </div>
         )
     }
 }
 
-export default EditBloc
+export default EditBloc;
+
+const styles = {
+    bloc: {
+        border: '2px solid #ccc',
+        borderRadius: '4px',
+        padding: '3%',
+        margin: '0 1% 1% 1%',
+    }
+}

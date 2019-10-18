@@ -14,7 +14,9 @@ class TopPageContent extends Component {
     }
 
     componentDidMount() {
+        // let page = JSON.parse(localStorage.getItem('page'));
         if (this.state.id_page !== this.props.data.page.id){
+        // if (this.state.id_page !== page.id){
             this.setState({
                 id_page: this.props.data.page.id,
                 titre: this.props.data.page.titre,
@@ -25,7 +27,10 @@ class TopPageContent extends Component {
     }
 
     componentDidUpdate() {
+
+        // let page = JSON.parse(localStorage.getItem('page'));
         if (this.state.id_page !== this.props.data.page.id){
+        // if (this.state.id_page !== page.id){
             this.setState({
                 id_page: this.props.data.page.id,
                 titre: this.props.data.page.titre,
@@ -52,11 +57,15 @@ class TopPageContent extends Component {
                 h1: this.state.h1,
                 url: this.state.url,
             })
+            let page = JSON.parse(localStorage.getItem('page'));
+            console.log(page);
+            localStorage.setItem('page', JSON.stringify({...this.state, ...page}))
         } else
             console.log("page undefined");
     }
 
-    render() { 
+    render() {
+        console.log(localStorage.page);
         return (
             <div style={styles.container}>
                 <div style={styles.spacing}>

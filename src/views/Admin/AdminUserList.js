@@ -13,8 +13,6 @@ class AdminUserList extends React.Component {
         }
     }
 
-    
-
     componentDidMount(){
         // if(localStorage.getItem('id_user') === null)
         //     this.props.history.push('/');
@@ -43,7 +41,7 @@ class AdminUserList extends React.Component {
                     <button key={index} id={user.id} className='btn-violet' onClick={this.handleClick}>{user.entreprise}</button>
                     )} */}
                 <ButtonList style={styles.button} toList={users} onClick={(user) => this.handleClick(user)} />
-                <LinkHover to="admin/ajout-client">Ajouter un client</LinkHover>
+                <LinkHover to="clients/ajout-client">Ajouter un client</LinkHover>
                 <LogoutButton history={this.props.history} />
             </div>
         );

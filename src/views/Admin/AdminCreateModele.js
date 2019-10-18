@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
-import { createProject } from '../../api/functions';
+import { createModele} from '../../api/functions';
 
-class AdminCreateProject extends Component {
+class AdminCreateModele extends Component {
     constructor(props) {
         super(props)
         this.state = {
             payload: {
                 nom: '',
-                description: '',
-                id_user: null
             },
             succes: false,
         }
-    }
-
-    componentDidMount() {
-        this.setState({
-            payload: {
-                ...this.state.payload,
-                id_user: JSON.parse(localStorage.userForAdmin).id,
-            }
-        })
     }
 
     handleChange = (event) => {
@@ -37,13 +26,12 @@ class AdminCreateProject extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log(this.state.payload)
-        createProject(this.state.payload, (resp) => {
-            if(resp.message === 'Projet créé.') {
+        createModele(this.state.payload, (resp) => {
+            if(resp.message === 'Modèle créé.') {
                 this.setState({
                     payload: {
                         ...this.state.payload,
                         nom: '',
-                        description: '',
                     },
                     succes: true,
                 })
@@ -56,31 +44,21 @@ class AdminCreateProject extends Component {
             <div style={styles.container}>
                 <div style={styles.forms}>
                     <form style={styles.form} onSubmit={this.handleSubmit}>
-                        <h2>Créer un projet</h2>
+                        <h2>Créer un Modèle</h2>
                         <label>Nom
                             <input
                                 style={styles.inputs}
                                 type="text" 
-                                placeholder="e.g. le projet blabla" 
+                                placeholder="e.g. le modèle blablah" 
                                 name="nom" 
                                 value={this.state.payload.nom} 
                                 onChange={this.handleChange}
                                 required
                                 />
                         </label>
-                        <label>Description
-                            <textarea
-                                style={{...styles.inputs, ...styles.textarea}}
-                                placeholder="e.g. Un projet de fou" 
-                                name="description"
-                                value={this.state.payload.description} 
-                                onChange={this.handleChange}
-                                rows="5"
-                                />
-                        </label>
-                        {this.state.succes && <p style={{color: 'green', margin: 0, fontSize: 10}}>Projet créé</p>}
+                        {this.state.succes && <p style={{color: 'green', margin: 0, fontSize: 10}}>Modèle créé</p>}
                         <div style={styles.right}>
-                            <button style={styles.button} type="submit">Créer le projet</button>
+                            <button style={styles.button} type="submit">Créer le modèle</button>
                         </div>
                     </form>
                 </div>
@@ -88,6 +66,8 @@ class AdminCreateProject extends Component {
         )
     }
 }
+
+export default AdminCreateModele;
 
 const styles = {
     container: {
@@ -132,5 +112,3 @@ const styles = {
         textAlign: 'right',
     },
 }
-
-export default AdminCreateProject;

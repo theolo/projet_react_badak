@@ -13,14 +13,16 @@ class EditContent extends Component {
     }
 
     setBlocs = () => {
-        if (this.state.id_page !== this.props.data.page.id){
+        let page = JSON.parse(localStorage.getItem('page'));
+        // if (this.state.id_page !== this.props.data.page.id){
+        if (this.state.id_page !== page.id){
             this.setState({
-                id_page: this.props.data.page.id
+                id_page: page.id
             })
             this.setState({
                 blocs: []
             })
-            getPageBlocs(this.props.data.page.id_modele, (resp) => {
+            getPageBlocs(page.id_modele, (resp) => {
                 this.setState({
                     blocs: resp.page_blocs,
                 })

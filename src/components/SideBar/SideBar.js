@@ -38,8 +38,13 @@ class SideBar extends React.Component {
 
     handleClick = (param) => {
         localStorage.setItem('page', JSON.stringify(param));
+        console.log(localStorage);
         this.props.data.setPage(param);
-        this.props.history.push(`/projets/pages/${param.id}`);
+        if (!JSON.parse(localStorage.user).admin)
+            this.props.history.push(`/projets/pages/${param.id}`);
+        else 
+            this.props.history.push(`/admin/clients/projets/pages/${param.id}`);
+
     }
 
     render() {

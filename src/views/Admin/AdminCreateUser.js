@@ -198,6 +198,7 @@ const styles = {
         background: 'rgb(28, 184, 65)',
     },
     right: {
+        paddingTop: '20px',
         textAlign: 'right',
     },
 }

@@ -35,6 +35,24 @@ class DataProvider extends Component {
         setPages: pages => this.setState({ pages: pages}),
     };
 
+    componentDidMount() {
+        if (localStorage.user) {
+            this.setState({
+                page: JSON.parse(localStorage.user),
+            })
+        }
+        if (localStorage.projet) {
+            this.setState({
+                page: JSON.parse(localStorage.projet),
+            })
+        }
+        if (localStorage.page) {
+            this.setState({
+                page: JSON.parse(localStorage.page),
+            })
+        }
+    }
+
     render() {
         return (
         <DataContext.Provider value={{...this.state}}>

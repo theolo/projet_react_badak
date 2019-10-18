@@ -19,7 +19,7 @@ class CustomField extends React.Component {
         this.setState({fields: [...this.state.fields, this.state.choice]})
     }
 
-    handlechange = (e) => {
+    handleChange = (e) => {
         let change = {}
         change[e.target.name] = e.target.value
         this.setState(change)
@@ -52,7 +52,7 @@ class CustomField extends React.Component {
                 })}
             </div>
             <div>
-                <select onChange={this.handlechange} name='choice' value={this.state.choice}>
+                <select onChange={this.handleChange} name='choice' value={this.state.choice}>
                     <option value='text'>Texte</option>
                     <option value='textarea'>zone de texte</option>
                     <option value='button'>button</option>
