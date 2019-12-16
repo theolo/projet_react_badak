@@ -12,7 +12,6 @@ class EditPage extends React.Component {
     componentDidMount() {
         if(!localStorage.page)
             this.props.history.push('/projets/pages');
-        
         // if(!this.context.page.id)
         //     this.props.history.push('/projets/pages');
     }
@@ -26,8 +25,8 @@ class EditPage extends React.Component {
                             <div>
                                 <SideBar history={this.props.history} content={content} data={data}/>
                                 <div style={styles.content}>
-                                    <TopPageContent content={content} data={data}/>
-                                    <EditContent content={content} data={data}/>
+                                    <TopPageContent history={this.props.history} content={content} data={data}/>
+                                    <EditContent history={this.props.history} content={content} data={data}/>
                                 </div>
                             </div>
                         );

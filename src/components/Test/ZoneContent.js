@@ -8,17 +8,17 @@ class ZoneContent extends React.Component {
             inc: 0,
             blocs: [{
                 id: 1,
-                section: true,
+                ensemble: true,
                 custom: false
             },
             {
                 id: 2,
-                section: false,
+                ensemble: false,
                 custom: true
             },
             {
                 id: 3,
-                section: false,
+                ensemble: false,
                 custom: false
             }],
         }
@@ -26,16 +26,16 @@ class ZoneContent extends React.Component {
 
     componentDidMount() {
         this.setState({
-            inc: this.state.blocs.length
+            inc: this.state.blocs[this.state.blocs.length-1].id + 1
         })
     }
 
     handleClick = (e) => {
         console.log(e.target);
-        const { name, id } = e.target
+        const { name, bloc_id } = e.target
         let blocs = this.state.blocs;
         for (let i in blocs) {
-            if (blocs[i].id === id) {
+            if (i === bloc_id) {
                 blocs[i][name] = true;
             }
         }        
@@ -47,24 +47,23 @@ class ZoneContent extends React.Component {
 
     addBlock = () => {
         this.setState({
-            blocs: [...this.state.blocs, {id: this.state.inc + 1, section: false, custom: false}],
+            blocs: [...this.state.blocs, {id: this.state.inc + 1, ensemble: false, custom: false}],
             inc: this.state.inc + 1,
         })
     }
 
     deleteBlock = (e) => {
-        console.log(e.target);
-        // let blocs = this.state.blocs;
-        // blocs.splice(e.target.id, 1)
-        // this.setState({
-        //     blocs: blocs,
-        //     inc: this.state.inc - 1
-        // });
+        console.log(e.target.id);
+        let blocs = this.state.blocs;
+        blocs.splice(e.target.id, 1)
+        this.setState({
+            blocs: blocs,
+        });
     }
 
     render() {
         const { blocs } = this.state
-        console.log(blocs);
+        console.log(this.state);
         
         return (
             <div>
@@ -72,7 +71,7 @@ class ZoneContent extends React.Component {
                     {blocs.map((bloc, index) => {
                         return (
                             <div key={index}>
-                                <EditBloc deleteBlock={this.deleteBlock} handleClick={this.handleClick} bloc={bloc}/>
+                                <EditBloc deleteBlock={this.deleteBlock} handleClick={this.handleClick} id={index} bloc={bloc}/>
                             </div>
                             )
                         })}

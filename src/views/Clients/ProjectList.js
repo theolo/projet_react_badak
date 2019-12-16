@@ -17,15 +17,10 @@ class ProjectList extends React.Component {
     componentDidMount(){
         if(!localStorage.user)
             this.props.history.push('/');
-        // if(!this.context.user.id)
-        //     this.props.history.push('/');
         else {
             getProjects(JSON.parse(localStorage.user).id, (resp) => {
                 this.setState({projets: resp.projets});
             })
-            // getProjects(this.context.user.id, (resp) => {
-            //     this.setState({projets: resp.projets});
-            // })
         }
     }
 

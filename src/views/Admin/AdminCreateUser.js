@@ -20,6 +20,7 @@ class CreateUser extends React.Component {
         }
     }
 
+
     handleChange = (event) => {
         const {name, value, checked} = event.target
         let toSet = {[name]: value};
@@ -61,8 +62,8 @@ class CreateUser extends React.Component {
                     })
                 }
             })
-            } else {
-                this.setState({
+        } else {
+            this.setState({
                     error: true,
                 });
             }
@@ -140,7 +141,7 @@ class CreateUser extends React.Component {
                                 />
                         </label>
                         {this.state.error && <p style={{color: 'red', margin: 0, fontSize: 10}}>Les mots de passe ne correspondent pas</p>}
-                        <div className="checkbox">
+                        {/* <div className="checkbox">
                             <input
                                 type="checkbox"
                                 id="isAdmin"
@@ -149,7 +150,7 @@ class CreateUser extends React.Component {
                                 onChange={this.handleChange}
                                 />
                                 <label htmlFor="isAdmin">isAdmin</label>
-                        </div>
+                        </div> */}
                         {this.state.succes && <p style={{color: 'green', margin: 0, fontSize: 10}}>Utilisateur créé</p>}
                         <div style={styles.right}>
                             <button style={styles.button} type="submit">Ajouter l'utilisateur</button>

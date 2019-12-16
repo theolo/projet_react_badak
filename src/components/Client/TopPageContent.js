@@ -9,7 +9,8 @@ class TopPageContent extends Component {
             id_page: null,
             titre: '',
             h1: '',
-            url: ''
+            url: '',
+            saved: false,
         }
     }
 
@@ -27,7 +28,6 @@ class TopPageContent extends Component {
     }
 
     componentDidUpdate() {
-
         // let page = JSON.parse(localStorage.getItem('page'));
         if (this.state.id_page !== this.props.data.page.id){
         // if (this.state.id_page !== page.id){
@@ -38,6 +38,15 @@ class TopPageContent extends Component {
                 url: this.props.data.page.url
             })
         }
+        if (this.state.saved) {
+            this.savedTimeOut = setTimeout(() => { 
+                this.setState(() => ({saved: false}))
+            }, 2000);
+        }
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.turnOffRedTimeout);
     }
 
     handleChange = (e) => {
@@ -49,23 +58,25 @@ class TopPageContent extends Component {
     SaveTop = () => {
         if (this.state.id_page !== null) {
             updateTopPage(this.state, (resp) => {
-                console.log(resp);
-            })
-            this.props.data.setPage({
-                ...this.props.data.page,
-                titre: this.state.titre,
-                h1: this.state.h1,
-                url: this.state.url,
-            })
-            let page = JSON.parse(localStorage.getItem('page'));
-            console.log(page);
-            localStorage.setItem('page', JSON.stringify({...this.state, ...page}))
+                if (resp.message === "Top page as been updated.") {
+                    this.props.data.setPage({
+                        ...this.props.data.page,
+                        titre: this.state.titre,
+                        h1: this.state.h1,
+                        url: this.state.url,
+                    })
+                    let page = JSON.parse(localStorage.getItem('page'));
+                    localStorage.setItem('page', JSON.stringify({...page, ...this.state}))
+                    this.setState({
+                        saved: true,
+                    })
+                }
+            });
         } else
-            console.log("page undefined");
+            alert("Une erreur est survenue");
     }
 
     render() {
-        console.log(localStorage.page);
         return (
             <div style={styles.container}>
                 <div style={styles.spacing}>
@@ -84,6 +95,7 @@ class TopPageContent extends Component {
                         <input style={styles.input} name="url" type='text' value={this.state.url} onChange={this.handleChange}/>
                     </div>
                     <div style={styles.right}>
+                    {this.state.saved && <p style={styles.saved}>Modification Enregistrées</p>}
                         <button style={styles.button} onClick={this.SaveTop}>Enregistrer top page</button>
                     </div>
                 </div>
@@ -132,5 +144,11 @@ const styles = {
         borderRadius: '4px',
         textShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
         background: 'rgb(28, 184, 65)',
-    }
+    },
+    saved: {
+        color: 'green',
+        margin: 0,
+        padding: 0,
+        fontSize: 10
+    },
 }

@@ -23,7 +23,7 @@ class AdminCreatePage extends Component {
         this.setState({
             payload: {
                 ...this.state.payload,
-                id_projet: JSON.parse(localStorage.projet).id,
+                id_projet: JSON.parse(localStorage.projetForAdmin).id,
             }
         })
     }

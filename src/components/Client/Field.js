@@ -3,6 +3,8 @@ import { ContentContext } from '../../store/ContentProvider';
 import { getFieldContent } from '../../api/functions';
 
 class Field extends Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -10,12 +12,22 @@ class Field extends Component {
         }
     }
 
-    componentDidMount() {        
+    componentDidMount() { 
+        this._isMounted = true;
         getFieldContent(this.props.field_id, JSON.parse(localStorage.page).id, (resp) => {
-            this.setState({
-                value: resp.content
-            })
+            if(this._isMounted) {
+                if (resp.content === false) {
+                    this.setState({
+                        value: '',
+                    })
+                } else {
+                    this.setState({
+                        value: resp.content
+                    })
+                }
+            }
         })
+    }
         // if(this.props.field_type === 'button') {
         //     this.setState({
         //         value: this.props.field_content,
@@ -27,6 +39,10 @@ class Field extends Component {
         // }
         // this.context.setInitial({field_id: this.props.field_id, page_id: JSON.parse(localStorage.page).id, content: this.props.field_content})
         // this.context.setFields({field_id: this.props.field_id, page_id: JSON.parse(localStorage.page).id, content: this.props.field_content})
+
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleChange = (e) => {
@@ -38,29 +54,44 @@ class Field extends Component {
 
     render() {
         const field = this.props;
-        if (this.state.value === false) {
-            this.setState({
-                value: '',
-            })
-        }
-        if(field.field_type === "textarea")
-            return (
-                <div>
-                    <label style={{display: "block"}}>
-                        {field.field_name} :
-                    </label>
-                        <textarea style={styles.textarea} id={field.field_id} value={this.state.value} onChange={this.handleChange} rows="7" cols="80"/>
-                </div>
-            );
-        else
-            return (
-                <div>
-                    <label>
-                        {field.field_name} :
-                        <input style={styles.input} type="text" id={field.field_id} value={this.state.value} onChange={this.handleChange}/>
-                    </label>
-                </div>
-            );
+        return (
+            <>
+            {field.field_type === "textarea" ? 
+            <div>
+                <label style={{display: "block"}}>
+                    {field.field_name} :
+                </label>
+                <textarea style={styles.textarea} id={field.field_id} value={this.state.value} onChange={this.handleChange} rows="7" cols="80"/>
+            </div>
+            :
+            <div>
+                <label>
+                    {field.field_name} :
+                    <input style={styles.input} type="text" id={field.field_id} value={this.state.value} onChange={this.handleChange}/>
+                </label>
+            </div>
+            }
+            </>
+        )
+        // if(field.field_type === "textarea") {
+        //     return (
+        //         <div>
+        //             <label style={{display: "block"}}>
+        //                 {field.field_name} :
+        //             </label>
+        //                 <textarea style={styles.textarea} id={field.field_id} value={this.state.value} onChange={this.handleChange} rows="7" cols="80"/>
+        //         </div>
+        //     );
+        // } else {
+        //     return (
+        //         <div>
+        //             <label>
+        //                 {field.field_name} :
+        //                 <input style={styles.input} type="text" id={field.field_id} value={this.state.value} onChange={this.handleChange}/>
+        //             </label>
+        //         </div>
+        //     );
+        // }
     }
 }
 Field.contextType = ContentContext;

@@ -12,14 +12,19 @@ class EditContent extends Component {
         }
     }
 
+    componentDidMount() {
+        if(!localStorage.page)
+            this.props.history.push('/projets/pages')
+        else
+            this.setBlocs()
+    }
+
     setBlocs = () => {
         let page = JSON.parse(localStorage.getItem('page'));
         // if (this.state.id_page !== this.props.data.page.id){
         if (this.state.id_page !== page.id){
             this.setState({
-                id_page: page.id
-            })
-            this.setState({
+                id_page: page.id,
                 blocs: []
             })
             getPageBlocs(page.id_modele, (resp) => {
@@ -30,10 +35,6 @@ class EditContent extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setBlocs()
-    }
-
     componentDidUpdate() {
         this.setBlocs()
     }
@@ -42,7 +43,7 @@ class EditContent extends Component {
         return (
             <div style={styles.position}>
                 <div style={styles.right}>
-                    {this.state.blocs !== [] && <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>}
+                    {this.state.blocs.length !== 0 && <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>}
                 </div>
                 {this.state.blocs.map((bloc, index) => {
                     return(
@@ -50,7 +51,7 @@ class EditContent extends Component {
                     )
                 })}
                 <div style={styles.right}>
-                    {this.state.blocs !== [] && <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>}
+                    {this.state.blocs.length !== 0 && <button style={styles.button} onClick={this.props.content.saveChanges}>Enregistrer les champs</button>}
                 </div>
             </div>
         );

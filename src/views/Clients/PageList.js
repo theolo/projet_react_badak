@@ -17,7 +17,7 @@ class PageList extends React.Component {
 
     componentDidMount(){
         if(!localStorage.projet){
-            this.props.history.push('/projet');
+            this.props.history.push('/projets');
         // if(!this.context.project.id){
         //     this.props.history.push('/projet');
         } else {

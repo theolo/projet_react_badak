@@ -47,7 +47,7 @@ class FieldsGroup extends Component {
             <div id="group">
                 {this.state.fields.map((field,index) =>
                     <Field key={index} {...field} {...this.props}/>
-                    )}
+                )}
             </div>
         )
     }

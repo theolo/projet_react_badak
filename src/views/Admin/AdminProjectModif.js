@@ -11,8 +11,8 @@ import ZoneContent from '../../components/Test/ZoneContent';
 class AdminProjectModif extends React.Component {
 
     componentDidMount() {
-        if(!localStorage.page)
-            this.props.history.push('/projets/pages');
+        if(!localStorage.pageForAdmin)
+            this.props.history.push('admin/clients/projets/pages');
         
         // if(!this.context.page.id)
         //     this.props.history.push('/projets/pages');

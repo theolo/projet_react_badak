@@ -6,7 +6,7 @@ class EditBloc extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            section: false,
+            ensemble: false,
             custom: false,
             cancel: false
         }
@@ -18,30 +18,30 @@ class EditBloc extends React.Component {
     }
 
     render() {
-        const { section, custom } = this.props.bloc
-        if(!section && !custom) {
+        const { ensemble, custom } = this.props.bloc
+        if(!ensemble && !custom) {
             return (
                 <>
                     <div style={styles.bloc}>
-                        <button id={this.props.bloc.id} name='section' onClick={this.props.handleClick}>Section</button>
-                        <button id={this.props.bloc.id} name='custom' onClick={this.props.handleClick}>Custom</button>
-                        <button id={this.props.bloc.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
+                        <button id={this.props.id} bloc_id={this.props.bloc.id} name='ensemble' onClick={this.props.handleClick}>ensemble</button>
+                        <button id={this.props.id} bloc_id={this.props.bloc.id} name='custom' onClick={this.props.handleClick}>Custom</button>
+                        <button id={this.props.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
                     </div>
                 </>
             )
-        }else if(!section && custom) {
+        }else if(!ensemble && custom) {
             return (
                 <>
                     <div style={styles.bloc}>
                         <CustomField />
-                        <button id={this.props.bloc.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
+                        <button id={this.props.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
                     </div>
                 </>
             )
         }
         return (
             <div style={styles.bloc}>
-                <button id={this.props.bloc.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
+                <button id={this.props.id} onClick={this.props.deleteBlock}>Supprimer ce bloc</button>
             </div>
         )
     }

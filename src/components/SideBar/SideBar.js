@@ -26,11 +26,15 @@ class SideBar extends React.Component {
     }
 
     componentDidMount() {
-        const projet = JSON.parse(localStorage.projet);
-        this.setState({project_name: projet.nom})
-        getPages(projet.id, (resp)=> {
-            this.setState({pages: resp.pages});
-        })
+        if(!localStorage.projet)
+            this.props.history.push('/projets/pages');
+        else {
+            const projet = JSON.parse(localStorage.projet);
+            this.setState({project_name: projet.nom})
+            getPages(projet.id, (resp)=> {
+                this.setState({pages: resp.pages});
+            })
+        }
     }
 
     // setPage = (e) => {
@@ -38,13 +42,11 @@ class SideBar extends React.Component {
 
     handleClick = (param) => {
         localStorage.setItem('page', JSON.stringify(param));
-        console.log(localStorage);
         this.props.data.setPage(param);
-        if (!JSON.parse(localStorage.user).admin)
+        if (JSON.parse(localStorage.user).admin === "0")
             this.props.history.push(`/projets/pages/${param.id}`);
         else 
             this.props.history.push(`/admin/clients/projets/pages/${param.id}`);
-
     }
 
     render() {

@@ -35,8 +35,7 @@ class ContentProvider extends Component {
             }else{
                 this.state.fields.map(field => {
                     updatePageFields(field, (resp) => {
-                        console.log(resp);                
-                    }).then()
+                    })
                     return null;
                 })
                 alert("Les modifications on été enregistrées.");

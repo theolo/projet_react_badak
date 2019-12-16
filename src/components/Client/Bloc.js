@@ -51,7 +51,7 @@ class Bloc extends React.Component {
                 <p>Bloc {this.state.bloc_id}</p>
                     {fieldsgroups.map((fieldsgroup, index) => 
                         <FieldsGroup key={index} {...fieldsgroup} {...this.props}/>
-                        )}
+                    )}
             </div>
         )
     }

@@ -24,9 +24,9 @@ class AdminPageList extends React.Component {
         }
     // }
 
-    handleClick = (param) => {
-        localStorage.setItem('pageForAdmin', JSON.stringify(param));
-        this.props.history.push(`/admin/clients/projets/pages/${param.id}`)
+    handleClick = (page) => {
+        localStorage.setItem('page', JSON.stringify(page));
+        this.props.history.push(`/admin/clients/projets/pages/${page.id}`)
     }
 
     render() {
